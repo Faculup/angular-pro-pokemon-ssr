@@ -1,8 +1,10 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   inject,
   OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
@@ -16,8 +18,15 @@ import { Meta, Title } from '@angular/platform-browser';
 export default class AboutPageComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
+  private platform = inject(PLATFORM_ID);
 
   ngOnInit(): void {
+    console.log(isPlatformBrowser(this.platform));
+    if (isPlatformBrowser(this.platform)) {
+      console.log('Estoy en el navegador');
+    } else {
+      console.log('Estoy en el servidor');
+    }
     this.title.setTitle('About Page');
     this.meta.updateTag({
       name: 'description',
